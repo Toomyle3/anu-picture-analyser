@@ -4,6 +4,16 @@ export const sidebarLinks = [
     route: "/",
     label: "Import Pictures",
   },
+  {
+    imgURL: "/icons/download.svg",
+    route: "/data-view",
+    label: "Data Details",
+  },
+  {
+    imgURL: "/icons/avatar.svg",
+    route: "/profile",
+    label: "User Profile",
+  },
 ];
 
 export const voiceDetails = [

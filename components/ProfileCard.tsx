@@ -1,42 +1,19 @@
 "use client";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-
-import { useAudio } from "../app/provider/AudioProvider";
-import { PodcastProps, ProfileCardProps } from "#/types";
-
+import { ProfileCardProps } from "#/types";
 import LoaderSpinner from "./LoaderSpinner";
-import { Button } from "./ui/button";
-
 const ProfileCard = ({
-  podcastData,
   imageUrl,
   userFirstName,
+  email,
+  createTime,
 }: ProfileCardProps) => {
-  const { setAudio } = useAudio();
-
-  const [randomPodcast, setRandomPodcast] = useState<PodcastProps | null>(null);
-
-  const playRandomPodcast = () => {
-    const randomIndex = Math.floor(Math.random() * podcastData.podcasts.length);
-
-    setRandomPodcast(podcastData.podcasts[randomIndex]);
-  };
-
-  useEffect(() => {
-    if (randomPodcast) {
-      setAudio({
-        title: randomPodcast.podcastTitle,
-        audioUrl: randomPodcast.audioUrl || "",
-        imageUrl: randomPodcast.imageUrl || "",
-        author: randomPodcast.author,
-        podcastId: randomPodcast._id,
-      });
-    }
-  }, [randomPodcast, setAudio]);
-
+  const formattedDate = new Date(createTime).toLocaleDateString("en-US", {
+    month: "short",
+    day: "2-digit",
+    year: "2-digit",
+  });
   if (!imageUrl) return <LoaderSpinner />;
-
   return (
     <div className="mt-6 flex flex-col gap-6 max-md:items-center md:flex-row">
       <Image
@@ -56,39 +33,24 @@ const ProfileCard = ({
               alt="verified"
             />
             <h2 className="text-14 font-medium text-white-2">
-              Verified Creator
+              Verified ANU User
             </h2>
           </figure>
-          <h1 className="text-32 font-extrabold tracking-[-0.32px] text-white-1">
-            {userFirstName}
+          <h1
+            className="text-[25px] 
+          flex justify-center
+          font-serif tracking-[-0.32px]
+           text-white-1"
+          >
+            {userFirstName.toUpperCase()}
+          </h1>
+          <h1 className="text-[25px] flex justify-center font-serif tracking-[-0.32px] text-white-1">
+            {email}
+          </h1>
+          <h1 className="text-[20px] flex justify-center font-serif tracking-[-0.32px] text-white-1">
+            Join the system since: {formattedDate}
           </h1>
         </div>
-        <figure className="flex gap-3 py-6">
-          <Image
-            src="/icons/headphone.svg"
-            width={24}
-            height={24}
-            alt="headphones"
-          />
-          <h2 className="text-16 font-semibold text-white-1">
-            {podcastData?.listeners} &nbsp;
-            <span className="font-normal text-white-2">monthly listeners</span>
-          </h2>
-        </figure>
-        {podcastData?.podcasts.length > 0 && (
-          <Button
-            onClick={playRandomPodcast}
-            className="text-16 bg-orange-1 font-extrabold text-white-1"
-          >
-            <Image
-              src="/icons/Play.svg"
-              width={20}
-              height={20}
-              alt="random play"
-            />{" "}
-            &nbsp; Play a random podcast
-          </Button>
-        )}
       </div>
     </div>
   );

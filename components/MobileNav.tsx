@@ -80,16 +80,6 @@ const MobileNav = () => {
                 })}
               </nav>
             </SheetClose>
-            <SignedIn>
-              <div className="flex-center w-full pb-14 max-lg:px-4 lg:pr-8">
-                <Button
-                  className="text-16 w-full bg-orange-1 font-extrabold logout-btn"
-                  onClick={() => signOut(() => router.push("/sign-in"))}
-                >
-                  Log Out
-                </Button>
-              </div>
-            </SignedIn>
           </div>
         </SheetContent>
         <SheetDescription></SheetDescription>

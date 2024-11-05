@@ -11,45 +11,6 @@ export interface EmptyStateProps {
   buttonLink?: string;
 }
 
-export interface TopPodcastersProps {
-  _id: Id<"users">;
-  _creationTime: number;
-  email: string;
-  imageUrl: string;
-  clerkId: string;
-  name: string;
-  podcast: {
-    podcastTitle: string;
-    podcastId: Id<"podcasts">;
-  }[];
-  totalPodcasts: number;
-}
-
-export interface PodcastProps {
-  _id: Id<"podcasts">;
-  _creationTime: number;
-  audioStorageId: Id<"_storage"> | null;
-  user: Id<"users">;
-  podcastTitle: string;
-  podcastDescription: string;
-  audioUrl: string | null;
-  imageUrl: string | null;
-  imageStorageId: Id<"_storage"> | null;
-  author: string;
-  authorId: string;
-  authorImageUrl: string;
-  voicePrompt: string;
-  imagePrompt: string | null;
-  voiceType: string;
-  audioDuration: number;
-  views: number;
-}
-
-export interface ProfilePodcastProps {
-  podcasts: PodcastProps[] | any;
-  listeners: number;
-}
-
 export interface GeneratePodcastProps {
   voiceType: string;
   setAudio: Dispatch<SetStateAction<string>>;
@@ -66,29 +27,6 @@ export interface GenerateThumbnailProps {
   image: string;
 }
 
-export interface LatestPodcastCardProps {
-  imgUrl: string;
-  title: string;
-  duration: string;
-  index: number;
-  audioUrl: string;
-  author: string;
-  views: number;
-  podcastId: Id<"podcasts">;
-}
-
-export interface PodcastDetailPlayerProps {
-  audioUrl: string;
-  podcastTitle: string;
-  author: string;
-  isOwner: boolean;
-  imageUrl: string;
-  podcastId: Id<"podcasts">;
-  imageStorageId: Id<"_storage">;
-  audioStorageId: Id<"_storage">;
-  authorImageUrl: string;
-  authorId: string;
-}
 
 export interface AudioProps {
   title: string;
@@ -107,7 +45,6 @@ export interface PodcastCardProps {
   imgUrl: string;
   title: string;
   description: string;
-  podcastId: Id<"podcasts">;
 }
 
 export interface ImageCardProps {
@@ -117,14 +54,11 @@ export interface ImageCardProps {
   imageId: Id<"images">;
 }
 
-export interface CarouselProps {
-  fansLikeDetail: TopPodcastersProps[];
-}
-
 export interface ProfileCardProps {
-  podcastData: ProfilePodcastProps;
   imageUrl: string;
   userFirstName: string;
+  email: string;
+  createTime: number;
 }
 
 export type UseDotButtonType = {
