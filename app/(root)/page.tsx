@@ -1,50 +1,83 @@
 "use client";
-import PodcastCard from "#/components/PodcastCard";
-import { useQuery } from "convex/react";
+
+import GenerateThumbnail from "#/components/GenerateThumbnail";
 import { api } from "#/convex/_generated/api";
-import LoaderSpinner from "#/components/LoaderSpinner";
-import ImageCard from "#/components/ImageCard";
+import { Id } from "#/convex/_generated/dataModel";
+import { Button } from "@/components/ui/button";
+import { useAction, useMutation } from "convex/react";
+import { Loader } from "lucide-react";
+import { useState } from "react";
 
-const Home = () => {
-  const trendingPodcasts = useQuery(api.podcasts.getTrendingPodcasts);
-  const trendingImages = useQuery(api.images.getTrendingImages);
-  if (!trendingPodcasts) return <LoaderSpinner />;
+const CreatePodcast = () => {
+  const [imageStorageId, setImageStorageId] = useState<Id<"_storage"> | null>(
+    null
+  );
+  const [imageUrl, setImageUrl] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const handleGenerateCode = useAction(api.openai.analyzePicture);
+  const handleSaveData = useMutation(api.picture.createImages);
+  async function onSubmit() {
+    console.log("====================================");
+    console.log("123");
+    console.log("====================================");
+    try {
+      setIsSubmitting(true);
+      if (!imageUrl) {
+        setIsSubmitting(false);
+        throw new Error("Please generate audio and image");
+      }
+      const response = await handleGenerateCode({
+        imageUrl,
+      });
+      const payload = {
+        imagesData: [
+          {
+            image_id: crypto.randomUUID(),
+            image_url: imageUrl,
+            categories: response ? response : [],
+            create_time: new Date().toISOString(),
+          },
+        ],
+      };
+      console.log("====================================");
+      console.log(payload, response);
+      console.log("====================================");
+      if (response) handleSaveData(payload);
+      setIsSubmitting(false);
+    } catch (error) {
+      console.log("====================================");
+      console.log(error);
+      console.log("====================================");
+      setIsSubmitting(false);
+    }
+  }
   return (
-    <div className="mt-9 flex flex-col gap-9 md:overflow-hidden">
-      <section className="flex flex-col gap-5">
-        <h1 className="text-20 font-bold text-white-1">Trending Podcasts</h1>
-
-        <div className="podcast_grid">
-          {trendingPodcasts?.map(
-            ({ _id, podcastTitle, podcastDescription, imageUrl }) => (
-              <PodcastCard
-                key={_id}
-                imgUrl={imageUrl as string}
-                title={podcastTitle}
-                description={podcastDescription}
-                podcastId={_id}
-              />
-            )
-          )}
+    <section className="mt-10 pb-10 flex flex-col">
+      <h1 className="text-20 font-bold text-white-1">Import Pictures</h1>
+      <div className="flex flex-col pt-10">
+        <GenerateThumbnail
+          setImage={setImageUrl}
+          setImageStorageId={setImageStorageId}
+          image={imageUrl}
+        />
+        <div className="mt-10 w-full">
+          <Button
+            onClick={() => onSubmit()}
+            className="text-16 w-full bg-orange-1 py-4 font-extrabold text-white-1 transition-all duration-500 hover:bg-black-1"
+          >
+            {isSubmitting ? (
+              <>
+                Submitting
+                <Loader size={20} className="animate-spin ml-2" />
+              </>
+            ) : (
+              "Submit & Publish"
+            )}
+          </Button>
         </div>
-        <h1 className="text-20 pt-10 font-bold text-white-1">Trending Arts</h1>
-
-        <div className="podcast_grid">
-          {trendingImages?.map(
-            ({ _id, imageDescription, author, imageUrl }) => (
-              <ImageCard
-                key={_id}
-                imgUrl={imageUrl as string}
-                title={author}
-                description={imageDescription}
-                imageId={_id}
-              />
-            )
-          )}
-        </div>
-      </section>
-    </div>
+      </div>
+    </section>
   );
 };
 
-export default Home;
+export default CreatePodcast;

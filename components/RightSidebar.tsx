@@ -1,17 +1,15 @@
 "use client";
 
+import { api } from "#/convex/_generated/api";
+import { cn } from "#/lib/utils";
 import { SignedIn, UserButton, useUser } from "@clerk/nextjs";
+import { useQuery } from "convex/react";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
-import Header from "./Header";
-import Carousel from "./Carousel";
-import { useQuery } from "convex/react";
-import { api } from "#/convex/_generated/api";
 import { useRouter } from "next/navigation";
-import LoaderSpinner from "./LoaderSpinner";
 import { useAudio } from "../app/provider/AudioProvider";
-import { cn } from "#/lib/utils";
+import Carousel from "./Carousel";
+import Header from "./Header";
 
 const RightSidebar = () => {
   const { user } = useUser();

@@ -21,7 +21,7 @@ import Header from "./Header";
 
 const MobileNavRight = () => {
   const { user } = useUser();
-  const topPodcasters = useQuery(api.users.getTopUserByPodcastCount);
+  // const topPodcasters = useQuery(api.users.getTopUserByPodcastCount);
   const router = useRouter();
   const pathname = usePathname();
   const { audio } = useAudio();
@@ -70,11 +70,11 @@ const MobileNavRight = () => {
             </SignedIn>
             <section>
               <Header headerTitle="Fans Like You" />
-              <Carousel fansLikeDetail={topPodcasters!} />
+              {/* <Carousel fansLikeDetail={topPodcasters!} /> */}
             </section>
             <section className="flex flex-col gap-8 pt-12">
               <Header headerTitle="Top Creators" />
-              <div className="flex flex-col gap-6">
+              {/* <div className="flex flex-col gap-6">
                 {topPodcasters?.slice(0, 3).map((podcaster) => (
                   <div
                     key={podcaster._id}
@@ -100,7 +100,7 @@ const MobileNavRight = () => {
                     </div>
                   </div>
                 ))}
-              </div>
+              </div> */}
             </section>
           </section>
         </SheetContent>

@@ -18,14 +18,18 @@ export const analyzePicture = action({
         messages: [
           {
             role: "system",
-            content: `You are an image analysis expert. Analyze the image and categorize objects into general categories. 
-            For example:
-            - Don't list "oak tree, pine tree" separately, group them under "Trees"
-            - Don't list "rose, tulip" separately, group them under "Flowers"
-            - Don't list specific breeds of animals, group them under general categories like "Birds", "Mammals", etc.
-            - Don't specify anything like human is just human for activities, emotions...
-            Provide output like this format: 
-              ["tree", "car", "person", "building", "dog"]`,
+            content: `You are an image analysis expert tasked with providing a comprehensive, detailed categorization of every identifiable object in the image. This analysis is meant to capture all elements relevant to human contexts, including every item, object, and setting aspect that appears in the image. Ensure that nothing is skipped.
+            Guidelines:
+
+            Categorize objects precisely and completely. Use general categories, but do not overlook any objects:
+            For natural elements, use broad categories like "Trees," "Flowers," and "Plants" rather than specific types.
+            For furniture and household items, label items specifically, such as "Chair," "Table," "Lamp," "Sofa," "Bed," etc.
+            List all animals present, using broad categories like "Birds," "Mammals," "Fish," or "Reptiles," unless a specific animal (e.g., "Dog," "Cat") is particularly relevant.
+            Identify people or human representations generically as "Person," "Child," "Adult," and capture any notable activities ("Reading," "Walking") or facial expressions/emotions ("Smiling," "Sleeping") where discernible.
+            For environmental and setting elements, specify contexts (e.g., "Park," "Office," "Home," "Street," "Night," "Day") if evident.
+            Return a list of all relevant categories in the following format, ensuring nothing in the image is missed:
+
+            Example: ["tree", "table", "chair", "lamp", "sofa", "person", "car", "building", "dog", "park", "night"]`,
           },
           {
             role: "user",
@@ -39,7 +43,6 @@ export const analyzePicture = action({
             ],
           },
         ],
-        max_tokens: 1000,
       });
       const textContent = response.choices[0].message.content;
       if (!textContent) {
@@ -47,15 +50,9 @@ export const analyzePicture = action({
       }
       try {
         const categories = JSON.parse(textContent);
-        return {
-          success: true,
-          categories,
-        };
+        return categories;
       } catch (parseError) {
-        return {
-          success: true,
-          rawAnalysis: textContent,
-        };
+        return null
       }
     } catch (error) {
       return {

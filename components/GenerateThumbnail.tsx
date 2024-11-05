@@ -17,8 +17,6 @@ const GenerateThumbnail = ({
   setImage,
   setImageStorageId,
   image,
-  imagePrompt,
-  setImagePrompt,
 }: GenerateThumbnailProps) => {
   const [isImageLoading, setIsImageLoading] = useState(false);
   const imageRef = useRef<HTMLInputElement>(null);
