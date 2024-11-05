@@ -27,7 +27,7 @@ export default function RootLayout({
               </div>
               <Link href="/" className="flex cursor-pointer md:hidden">
                 <Image
-                  src="/icons/logo.svg"
+                  src="/icons/logo.png"
                   alt="logo"
                   width={30}
                   height={30}
