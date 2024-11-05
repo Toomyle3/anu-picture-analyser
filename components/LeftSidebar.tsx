@@ -28,18 +28,16 @@ const LeftSidebar = () => {
           href="/"
           className="flex cursor-pointer items-center justify-start gap-5 pl-[17px]"
         >
-          <div
-            className="flex justify-center items-center"
-            style={{
-              borderRadius: "50%",
-              width: "60px",
-              height: "60px",
-              backgroundColor: "white",
-            }}
-          >
-            <Image src="/icons/logo.png" alt="logo" width={40} height={40} />
-          </div>
-          <h3 className="text-20 font-extrabold text-white">ANU Picture Analyser</h3>
+          <Image
+            src="/icons/logo.png"
+            alt="logo"
+            width={40}
+            height={40}
+            className="rounded"
+          />
+          <h3 className="text-20 font-extrabold text-white">
+            ANU Picture Analyser
+          </h3>
         </Link>
         <nav className="nav-scroll flex flex-col gap-6 items-start overflow-auto max-h-[600px]">
           {sidebarLinks.map(({ route, label, imgURL }) => {
