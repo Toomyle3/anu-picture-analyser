@@ -9,7 +9,7 @@ export default function RootLayout({
     <main className="relative flex bg-black-3">
       <div className="absolute size-full">
         <Image
-          src="/images/bg-img.png"
+          src="/images/bg-img.jpg"
           alt="background"
           fill
           className="size-full"

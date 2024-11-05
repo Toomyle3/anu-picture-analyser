@@ -44,7 +44,7 @@ const MobileNav = () => {
             href="/"
             className="flex cursor-pointer items-center gap-1 pb-10 pl-4"
           >
-            <Image src="/icons/logo.svg" alt="logo" width={23} height={27} />
+            <Image src="/icons/logo.png" alt="logo" width={23} height={27} />
             <h3 className="text-20 font-extrabold text-white-1 ml-2">
               Tommy AI
             </h3>

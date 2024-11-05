@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title: "Tommy AI",
   description: "Generate everything with AI",
   icons: {
-    icon: "/icons/logo.svg",
+    icon: "/icons/logo.png",
   },
 };
 
