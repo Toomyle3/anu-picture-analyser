@@ -5,45 +5,9 @@ export const sidebarLinks = [
     label: "Home",
   },
   {
-    imgURL: "/icons/discover.svg",
-    route: "/discover",
-    label: "Discover",
-  },
-  {
-    imgURL: "/icons/microphone.svg",
-    route: "/create-podcast",
-    label: "Create Podcast",
-  },
-
-  {
-    imgURL: "/icons/conversation.svg",
-    route: "/conversation",
-    label: "Conversation",
-  },
-  {
     imgURL: "/icons/image.svg",
-    route: "/image-generation",
-    label: "Image Generation",
-  },
-  {
-    imgURL: "/icons/video.svg",
-    route: "/video-generation",
-    label: "Video Generation",
-  },
-  {
-    imgURL: "/icons/music.svg",
-    route: "/music-generation",
-    label: "Music Generation",
-  },
-  {
-    imgURL: "/icons/code.svg",
-    route: "/code-generation",
-    label: "Code Generation",
-  },
-  {
-    imgURL: "/icons/avatar.svg",
-    route: "/profile",
-    label: "User Profile",
+    route: "/create-podcast",
+    label: "Import Picture Data",
   },
 ];
 
