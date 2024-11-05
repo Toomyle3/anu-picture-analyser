@@ -2,7 +2,7 @@ export const sidebarLinks = [
   {
     imgURL: "/icons/image.svg",
     route: "/",
-    label: "Import Picture Data",
+    label: "Import Pictures",
   },
 ];
 

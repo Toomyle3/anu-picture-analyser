@@ -20,7 +20,7 @@ const UsersInfo = () => {
           text-[#ffffff]
           font-[600] truncate"
         >
-          {user?.firstName?.toUpperCase() + " "}
+          {/* {user?.firstName?.toUpperCase() + " "} */}
           {user?.lastName?.toUpperCase()}
         </h1>
       </div>

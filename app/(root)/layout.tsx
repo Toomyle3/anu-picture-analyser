@@ -29,8 +29,8 @@ export default function RootLayout({
                 <Image
                   src="/icons/logo.png"
                   alt="logo"
-                  width={30}
-                  height={30}
+                  width={40}
+                  height={40}
                 />
               </Link>
               <div className="flex items-center gap-1">
