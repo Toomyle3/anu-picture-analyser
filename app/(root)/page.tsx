@@ -1,5 +1,4 @@
 "use client";
-
 import GenerateThumbnail from "#/components/GenerateThumbnail";
 import { api } from "#/convex/_generated/api";
 import { Id } from "#/convex/_generated/dataModel";
@@ -17,9 +16,6 @@ const CreatePodcast = () => {
   const handleGenerateCode = useAction(api.openai.analyzePicture);
   const handleSaveData = useMutation(api.picture.createImages);
   async function onSubmit() {
-    console.log("====================================");
-    console.log("123");
-    console.log("====================================");
     try {
       setIsSubmitting(true);
       if (!imageUrl) {
@@ -39,15 +35,10 @@ const CreatePodcast = () => {
           },
         ],
       };
-      console.log("====================================");
-      console.log(payload, response);
-      console.log("====================================");
       if (response) handleSaveData(payload);
       setIsSubmitting(false);
     } catch (error) {
-      console.log("====================================");
       console.log(error);
-      console.log("====================================");
       setIsSubmitting(false);
     }
   }

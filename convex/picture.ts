@@ -7,7 +7,7 @@ export const createImages = mutation({
       v.object({
         image_id: v.string(),
         image_url: v.string(),
-        categories: v.any(), // Corrected spelling here
+        categories: v.any(),
         create_time: v.string(),
       })
     ),
@@ -44,3 +44,13 @@ export const createImages = mutation({
     return insertedIds;
   },
 });
+
+export const getUrl = mutation({
+  args: {
+    storageId: v.id("_storage"),
+  },
+  handler: async (ctx, args) => {
+    return await ctx.storage.getUrl(args.storageId);
+  },
+});
+

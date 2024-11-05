@@ -22,7 +22,7 @@ const GenerateThumbnail = ({
   const imageRef = useRef<HTMLInputElement>(null);
   const generateUploadUrl = useMutation(api.files.generateUploadUrl);
   const { startUpload } = useUploadFiles(generateUploadUrl);
-  const getImageUrl = useMutation(api.podcasts.getUrl);
+  const getImageUrl = useMutation(api.picture.getUrl);
   const handleImage = async (blob: Blob, fileName: string) => {
     setImage("");
 
