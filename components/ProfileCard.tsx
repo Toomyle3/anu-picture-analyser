@@ -38,16 +38,16 @@ const ProfileCard = ({
           </figure>
           <h1
             className="text-[25px] 
-          flex justify-center
+          flex justify-center md:justify-start
           font-serif tracking-[-0.32px]
            text-white-1"
           >
             {userFirstName.toUpperCase()}
           </h1>
-          <h1 className="text-[25px] flex justify-center font-serif tracking-[-0.32px] text-white-1">
+          <h1 className="text-[25px] flex md:justify-start justify-center font-serif tracking-[-0.32px] text-white-1">
             {email}
           </h1>
-          <h1 className="text-[20px] flex justify-center font-serif tracking-[-0.32px] text-white-1">
+          <h1 className="text-[20px] flex md:justify-start justify-center font-serif tracking-[-0.32px] text-white-1">
             Join the system since: {formattedDate}
           </h1>
         </div>

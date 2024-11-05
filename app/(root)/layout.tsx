@@ -15,17 +15,19 @@ export default function RootLayout({
   return (
     <div className="relative flex flex-col">
       <main className="relative flex bg-black-3 pb-20 sm:pb-0">
+        <div className="hidden lg:block">
         <LeftSidebar />
-        <section className="flex min-h-screen flex-1 flex-col px-4 md:px-14 overflow-auto">
+        </div>
+        <section className="flex min-h-screen flex-1 flex-col px-4 lg:px-14 overflow-auto">
           <div className="mx-auto flex w-full max-w-5xl flex-col max-sm:px-4">
             <div
               className=" bg-black-3 flex h-16 
-            items-center justify-between md:justify-end"
+            items-center justify-between lg:justify-end"
             >
-              <div className="md:hidden">
+              <div className="lg:hidden">
                 <MobileNav />
               </div>
-              <Link href="/" className="flex cursor-pointer md:hidden">
+              <Link href="/" className="flex cursor-pointer lg:hidden">
                 <Image
                   src="/icons/logo.png"
                   alt="logo"
@@ -37,7 +39,7 @@ export default function RootLayout({
                 <UsersInfo />
               </div>
             </div>
-            <div className="flex flex-col mt-8 md:pb-14">
+            <div className="flex flex-col mt-8 lg:pb-14">
               <Toaster />
               {children}
             </div>
