@@ -145,6 +145,30 @@ html {
 .cl-userButtonPopoverActionButtonIcon {
   color: white;
 }
+
+.cl-internal-1lldyk3 {
+  color: white;
+  &:hover {
+    color: white !important;
+  }
+}
+
 .cl-internal-wkkub3 {
   color: #f97535;
+}
+
+.cl-internal-1hp5nqm {
+  display: none !important;
+}
+
+.lucide-x {
+  color: white !important;
+  margin-top: 1rem;
+}
+
+.logout-btn {
+  &:hover {
+    color: white;
+    background-color: #292f39 !important;
+  }
 }

@@ -3,6 +3,7 @@ import MobileNav from "#/components/MobileNav";
 import MobileNavRight from "#/components/MobileNavRight";
 import PodcastPlayer from "#/components/PodcastPlayer";
 import { Toaster } from "#/components/ui/toaster";
+import UsersInfo from "#/components/UsersInfo";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -15,7 +16,6 @@ export default function RootLayout({
     <div className="relative flex flex-col">
       <main className="relative flex bg-black-3 pb-20 sm:pb-0">
         <LeftSidebar />
-
         <section className="flex min-h-screen flex-1 flex-col px-4 md:px-14 overflow-auto">
           <div className="mx-auto flex w-full max-w-5xl flex-col max-sm:px-4">
             <div
@@ -33,7 +33,9 @@ export default function RootLayout({
                   height={30}
                 />
               </Link>
-              <MobileNavRight />
+              <div className="flex items-center gap-1">
+                <UsersInfo />
+              </div>
             </div>
             <div className="flex flex-col mt-8 md:pb-14">
               <Toaster />
