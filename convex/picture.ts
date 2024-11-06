@@ -1,5 +1,5 @@
 import { ConvexError, v } from "convex/values";
-import { mutation, query } from "./_generated/server";
+import { internalMutation, mutation, query } from "./_generated/server";
 
 export const createImages = mutation({
   args: {
@@ -114,5 +114,20 @@ export const getPictureById = query({
   },
   handler: async (ctx, args) => {
     return await ctx.db.get(args.image_id);
+  },
+});
+
+export const deleteImageById = mutation({
+  args: {
+    imageId: v.id("images"),
+  },
+  handler: async (ctx, args) => {
+    const image = await ctx.db.get(args.imageId);
+
+    if (!image) {
+      throw new ConvexError("ImageId not found");
+    }
+
+    return await ctx.db.delete(args.imageId);
   },
 });
