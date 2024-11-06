@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useQuery } from "convex/react";
 import React, { useState } from "react";
 
-const page = () => {
+const Page = () => {
   const allImagesData = useQuery(api.picture.getAllPics);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 24;
@@ -80,4 +80,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
