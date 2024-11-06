@@ -8,7 +8,7 @@ import classNames from "classnames";
 import { useQuery } from "convex/react";
 import { useState } from "react";
 
-const page = () => {
+const Page = () => {
   const { handleExportXLSX } = useExportCsv();
   const allImagesData = useQuery(api.picture.getAllCategorizedPics);
   const [currentPage, setCurrentPage] = useState(1);
@@ -102,4 +102,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
