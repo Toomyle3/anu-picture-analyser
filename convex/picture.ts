@@ -117,9 +117,33 @@ export const getPictureById = query({
   },
 });
 
+export const getPictureByIdCategorized = query({
+  args: {
+    image_id: v.id("imagesData"),
+  },
+  handler: async (ctx, args) => {
+    return await ctx.db.get(args.image_id);
+  },
+});
+
 export const deleteImageById = mutation({
   args: {
     imageId: v.id("images"),
+  },
+  handler: async (ctx, args) => {
+    const image = await ctx.db.get(args.imageId);
+
+    if (!image) {
+      throw new ConvexError("ImageId not found");
+    }
+
+    return await ctx.db.delete(args.imageId);
+  },
+});
+
+export const deleteImageByIdCategorized = mutation({
+  args: {
+    imageId: v.id("imagesData"),
   },
   handler: async (ctx, args) => {
     const image = await ctx.db.get(args.imageId);

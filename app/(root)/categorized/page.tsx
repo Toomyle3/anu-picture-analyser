@@ -1,12 +1,14 @@
 "use client";
+import CategorizedCard from "#/components/CategorizedCard";
 import EmptyState from "#/components/EmptyState";
-import PodcastCard from "#/components/PodcastCard";
 import { api } from "#/convex/_generated/api";
+import useExportCsv from "#/hooks/useExportCsv";
 import { Button } from "@/components/ui/button";
 import { useQuery } from "convex/react";
-import React, { useState } from "react";
+import { useState } from "react";
 
 const page = () => {
+  const { handleExportXLSX } = useExportCsv();
   const allImagesData = useQuery(api.picture.getAllCategorizedPics);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 24;
@@ -28,16 +30,35 @@ const page = () => {
   return (
     <div className="flex flex-col gap-9 md:overflow-hidden">
       <section className="flex flex-col gap-5 pb-5">
-        <h1 className="text-20 font-bold text-white-1">Categorized Pictures</h1>
+        <div className="flex gap-5 items-center text-white-1">
+          <h1 className="text-20 font-bold text-white-1">
+            Categorized Pictures
+          </h1>
+          <Button
+            onClick={() => handleExportXLSX(allImagesData)}
+            className="px-4 py-2 bg-orange-1 text-white rounded"
+          >
+            Export to Excel
+          </Button>
+        </div>
         {currentItems && currentItems?.length > 0 ? (
           <div className="podcast_grid">
             {currentItems?.map(
-              ({ _id, image_id, image_url, user, _creationTime }) => (
-                <PodcastCard
+              ({
+                _id,
+                image_id,
+                categories,
+                image_url,
+                user,
+                _creationTime,
+              }) => (
+                <CategorizedCard
                   key={_id}
+                  id={_id}
                   image_url={image_url}
                   image_id={image_id}
                   user={user}
+                  categories={categories}
                   _creationTime={_creationTime}
                 />
               )

@@ -70,3 +70,12 @@ export type UseDotButtonType = {
   scrollSnaps: number[];
   onDotButtonClick: (index: number) => void;
 };
+
+export type CategorizedCardProps = {
+  id: string;
+  image_url: string;
+  image_id: string;
+  categories: string[];
+  user: string;
+  _creationTime: number;
+};
