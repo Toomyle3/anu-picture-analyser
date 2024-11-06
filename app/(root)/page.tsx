@@ -1,5 +1,14 @@
 "use client";
 import GenerateThumbnail from "#/components/GenerateThumbnail";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "#/components/ui/alert-dialog";
 import { api } from "#/convex/_generated/api";
 import { Id } from "#/convex/_generated/dataModel";
 import { Button } from "@/components/ui/button";
@@ -13,8 +22,8 @@ const CreatePodcast = () => {
   const [imageStorageId, setImageStorageId] = useState<Id<"_storage"> | null>(
     null
   );
+  const [showSuccessDialog, setShowSuccessDialog] = useState(false);
   const [storageIds, setStorageIds] = useState<string[]>([]);
-  const { toast } = useToast();
   const [imageUrl, setImageUrl] = useState<string[]>([]);
   const [uploadedImages, setUploadedImages] = useState<string[]>(
     imageUrl || []
@@ -50,7 +59,7 @@ const CreatePodcast = () => {
       if (operationTime < 2000) {
         await delay(2000 - operationTime);
       }
-
+      setShowSuccessDialog(true);
       clearAllImages();
       setIsSubmitting(false);
     } catch (error) {
@@ -64,9 +73,38 @@ const CreatePodcast = () => {
     setImageUrl([]);
     setImageStorageId(undefined as any);
   };
+  const handleSuccessConfirm = () => {
+    setShowSuccessDialog(false);
+    clearAllImages();
+  };
   return (
     <section className="mt-10 pb-10 flex flex-col">
       <h1 className="text-20 font-bold text-white-1">Import Pictures</h1>
+      <AlertDialog open={showSuccessDialog} onOpenChange={setShowSuccessDialog}>
+        <AlertDialogContent
+          className="fixed top-1/3 flex justify-center flex-col h-[200px]
+        border-none bg-gray-600 text-white-1"
+        >
+          <AlertDialogHeader>
+            <AlertDialogTitle>Success!</AlertDialogTitle>
+            <AlertDialogDescription>
+              Your images have been saved successfully.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogAction onClick={handleSuccessConfirm}>
+              <Button
+                className="text-16 hover:bg-black-1
+            w-full bg-gray-500 font-extrabold 
+            text-[#ffffff] transition-all 
+            duration-500"
+              >
+                Continue
+              </Button>
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
       <div className="flex flex-col pt-10">
         <GenerateThumbnail
           uploadedImages={uploadedImages}
