@@ -11,7 +11,9 @@ const useExportCsv = () => {
       const header = ["Item", ...uniqueCategories];
       const workbook = new ExcelJS.Workbook();
       const worksheet = workbook.addWorksheet("Sheet1");
-      worksheet.addRow(header);
+      const headerRow = worksheet.addRow(header);
+      headerRow.font = { bold: true };
+      headerRow.alignment = { horizontal: "center" };
 
       worksheet.getColumn(1).width = 120 / 7.5;
       for (const value of data) {

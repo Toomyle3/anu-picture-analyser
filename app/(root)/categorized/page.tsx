@@ -4,6 +4,7 @@ import EmptyState from "#/components/EmptyState";
 import { api } from "#/convex/_generated/api";
 import useExportCsv from "#/hooks/useExportCsv";
 import { Button } from "@/components/ui/button";
+import classNames from "classnames";
 import { useQuery } from "convex/react";
 import { useState } from "react";
 
@@ -35,8 +36,12 @@ const page = () => {
             Categorized Pictures
           </h1>
           <Button
+            disabled={allImagesData?.length === 0}
             onClick={() => handleExportXLSX(allImagesData)}
-            className="px-4 py-2 bg-orange-1 text-white rounded"
+            className={classNames("px-4 py-2 text-white hover:bg-black-1 rounded border", {
+              "bg-orange-1": allImagesData && allImagesData?.length > 0,
+              "bg-gray-500": allImagesData?.length === 0,
+            })}
           >
             Export to Excel
           </Button>
