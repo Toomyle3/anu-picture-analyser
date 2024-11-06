@@ -12,18 +12,18 @@ const useExportCsv = () => {
       const workbook = new ExcelJS.Workbook();
       const worksheet = workbook.addWorksheet("Sheet1");
       worksheet.addRow(header);
-      const imageSizes = [];
 
+      worksheet.getColumn(1).width = 120 / 7.5;
       for (const value of data) {
         const row = [
           value.image_url
-            ? { text: "Image", hyperlink: value.image_url }
+            ? { text: value.image_url, hyperlink: value.image_url }
             : "No Image",
         ];
         uniqueCategories.forEach((category) => {
           row.push(value.categories.includes(category) ? 1 : 0);
         });
-        worksheet.addRow(row);
+        const currentRow = worksheet.addRow(row);
 
         if (value.image_url) {
           const imageBuffer = await axios.get(value.image_url, {
@@ -34,27 +34,16 @@ const useExportCsv = () => {
             extension: "jpeg",
           });
 
-          const image = worksheet.addImage(imageId, {
+          worksheet.addImage(imageId, {
             tl: { col: 0, row: worksheet.rowCount - 1 },
-            ext: { width: 50, height: 50 },
+            ext: { width: 100, height: 100 },
           });
-          imageSizes.push({ width: 50, height: 50 });
+
+          currentRow.height = 120 / 1.33;
         } else {
-          imageSizes.push({ width: 50, height: 50 });
+          currentRow.height = 120 / 1.33;
         }
       }
-      const colWidths = [
-        { wch: 60 },
-        { wch: 45 },
-        ...uniqueCategories.map(() => ({ wch: 22 })),
-      ];
-      const rowHeights = [
-        { hpt: 60 },
-        ...imageSizes.map((size) => ({ hpt: size.height })),
-      ];
-      worksheet.columns = colWidths;
-      worksheet["cols"] = colWidths;
-      worksheet["rows"] = rowHeights;
 
       const xlsxBuffer = await workbook.xlsx.writeBuffer();
       const xlsxBlob = new Blob([xlsxBuffer], {
