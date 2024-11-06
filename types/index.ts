@@ -44,6 +44,7 @@ export interface AudioContextType {
 }
 
 export interface PodcastCardProps {
+  id: string;
   image_url: string;
   image_id: string;
   user: string;

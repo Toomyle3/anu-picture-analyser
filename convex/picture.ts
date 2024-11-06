@@ -107,3 +107,12 @@ export const getAllCategorizedPics = query({
     return await ctx.db.query("imagesData").order("desc").collect();
   },
 });
+
+export const getPictureById = query({
+  args: {
+    image_id: v.id("images"),
+  },
+  handler: async (ctx, args) => {
+    return await ctx.db.get(args.image_id);
+  },
+});

@@ -37,6 +37,7 @@ const page = () => {
               ({ _id, image_id, image_url, user, _creationTime }) => (
                 <PodcastCard
                   key={_id}
+                  id={_id}
                   image_url={image_url}
                   image_id={image_id}
                   user={user}
