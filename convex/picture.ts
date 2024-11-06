@@ -1,5 +1,5 @@
 import { ConvexError, v } from "convex/values";
-import { mutation } from "./_generated/server";
+import { mutation, query } from "./_generated/server";
 
 export const createImages = mutation({
   args: {
@@ -93,5 +93,17 @@ export const getUrl = mutation({
   },
   handler: async (ctx, args) => {
     return await ctx.storage.getUrl(args.storageId);
+  },
+});
+
+export const getAllPics = query({
+  handler: async (ctx) => {
+    return await ctx.db.query("images").order("desc").collect();
+  },
+});
+
+export const getAllCategorizedPics = query({
+  handler: async (ctx) => {
+    return await ctx.db.query("imagesData").order("desc").collect();
   },
 });

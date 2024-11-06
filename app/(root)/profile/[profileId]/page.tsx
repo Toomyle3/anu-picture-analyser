@@ -18,7 +18,7 @@ const ProfilePage = ({
   if (!user) return <LoaderSpinner />;
 
   return (
-    <section className="mt-9 flex flex-col">
+    <section className="flex flex-col">
       <h1 className="text-20 font-bold text-white-1 max-md:text-center">
         User Profile
       </h1>

@@ -78,7 +78,7 @@ const CreatePodcast = () => {
     clearAllImages();
   };
   return (
-    <section className="mt-10 pb-10 flex flex-col">
+    <section className="pb-10 flex flex-col">
       <h1 className="text-20 font-bold text-white-1">Import Pictures</h1>
       <AlertDialog open={showSuccessDialog} onOpenChange={setShowSuccessDialog}>
         <AlertDialogContent

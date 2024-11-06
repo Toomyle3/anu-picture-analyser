@@ -6,8 +6,13 @@ export const sidebarLinks = [
   },
   {
     imgURL: "/icons/download.svg",
-    route: "/data-view",
-    label: "Data Details",
+    route: "/categorized",
+    label: "Categorized Pictures",
+  },
+  {
+    imgURL: "/icons/discover.svg",
+    route: "/uncategorized",
+    label: "Uncategorized Pictures",
   },
   {
     imgURL: "/icons/avatar.svg",

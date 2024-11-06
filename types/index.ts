@@ -22,14 +22,13 @@ export interface GeneratePodcastProps {
 }
 
 export interface GenerateThumbnailProps {
-  setImageUrl: Dispatch<(string)[]>;
+  setImageUrl: Dispatch<string[]>;
   setImageStorageId: Dispatch<SetStateAction<Id<"_storage"> | null>>;
   setUploadedImages: Dispatch<SetStateAction<string[]>>;
   setStorageIds: Dispatch<SetStateAction<string[]>>;
   storageIds: string[];
   uploadedImages: string[];
 }
-
 
 export interface AudioProps {
   title: string;
@@ -45,9 +44,10 @@ export interface AudioContextType {
 }
 
 export interface PodcastCardProps {
-  imgUrl: string;
-  title: string;
-  description: string;
+  image_url: string;
+  image_id: string;
+  user: string;
+  _creationTime: number;
 }
 
 export interface ImageCardProps {
