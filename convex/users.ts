@@ -18,6 +18,22 @@ export const getUserById = query({
   },
 });
 
+export const getUserByClerkId = query({
+  args: { clerkId: v.string() },
+  handler: async (ctx, args) => {
+    const user = await ctx.db
+      .query("users")
+      .filter((q) => q.eq(q.field("clerkId"), args.clerkId))
+      .unique();
+
+    if (!user) {
+      throw new ConvexError("User not found");
+    }
+
+    return user;
+  },
+});
+
 export const createUser = internalMutation({
   args: {
     clerkId: v.string(),

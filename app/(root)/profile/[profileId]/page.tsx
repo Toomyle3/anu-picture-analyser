@@ -11,7 +11,7 @@ const ProfilePage = ({
     profileId: string;
   };
 }) => {
-  const user = useQuery(api.users.getUserById, {
+  const user = useQuery(api.users.getUserByClerkId, {
     clerkId: params.profileId,
   });
 
