@@ -3,8 +3,9 @@ import GenerateThumbnail from "#/components/GenerateThumbnail";
 import { api } from "#/convex/_generated/api";
 import { Id } from "#/convex/_generated/dataModel";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
 import classNames from "classnames";
-import { useAction, useMutation } from "convex/react";
+import { useMutation } from "convex/react";
 import { Loader } from "lucide-react";
 import { useState } from "react";
 
@@ -13,23 +14,25 @@ const CreatePodcast = () => {
     null
   );
   const [storageIds, setStorageIds] = useState<string[]>([]);
-
+  const { toast } = useToast();
   const [imageUrl, setImageUrl] = useState<string[]>([]);
   const [uploadedImages, setUploadedImages] = useState<string[]>(
     imageUrl || []
   );
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const handleGenerateCode = useAction(api.openai.analyzePicture);
   const handleSaveData = useMutation(api.picture.createImages);
+  const delay = (ms: number) =>
+    new Promise((resolve) => setTimeout(resolve, ms));
   async function onSubmit() {
     try {
       setIsSubmitting(true);
+      const startTime = Date.now();
       if (!imageUrl) {
         setIsSubmitting(false);
         throw new Error("Please generate audio and image");
       }
       if (imageUrl.length > 0) {
-        imageUrl.forEach(async (url) => {
+        const savePromises = imageUrl.map(async (url) => {
           const payload = {
             imagesData: [
               {
@@ -39,9 +42,16 @@ const CreatePodcast = () => {
               },
             ],
           };
-          await handleSaveData(payload);
+          return handleSaveData(payload);
         });
+        await Promise.all(savePromises);
       }
+      const operationTime = Date.now() - startTime;
+      if (operationTime < 2000) {
+        await delay(2000 - operationTime);
+      }
+
+      clearAllImages();
       setIsSubmitting(false);
     } catch (error) {
       console.log(error);
@@ -69,7 +79,7 @@ const CreatePodcast = () => {
         <div className="mt-10 w-full justify-between flex gap-2">
           <Button
             onClick={() => onSubmit()}
-            disabled={isSubmitting}
+            disabled={isSubmitting || uploadedImages.length === 0}
             className={classNames(
               "text-16 w-full bg-orange-1 font-extrabold text-white-1 transition-all duration-500",
               {
