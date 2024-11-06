@@ -6,6 +6,12 @@ export default defineSchema({
     user: v.id("users"),
     image_id: v.string(),
     image_url: v.string(),
+    create_time: v.string(),
+  }),
+  imagesData: defineTable({
+    user: v.id("users"),
+    image_id: v.string(),
+    image_url: v.string(),
     categories: v.any(),
     create_time: v.string(),
   }),

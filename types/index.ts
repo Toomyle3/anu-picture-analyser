@@ -22,9 +22,12 @@ export interface GeneratePodcastProps {
 }
 
 export interface GenerateThumbnailProps {
-  setImage: Dispatch<SetStateAction<string>>;
+  setImageUrl: Dispatch<(string)[]>;
   setImageStorageId: Dispatch<SetStateAction<Id<"_storage"> | null>>;
-  image: string;
+  setUploadedImages: Dispatch<SetStateAction<string[]>>;
+  setStorageIds: Dispatch<SetStateAction<string[]>>;
+  storageIds: string[];
+  uploadedImages: string[];
 }
 
 

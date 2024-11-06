@@ -1,6 +1,5 @@
 import LeftSidebar from "#/components/LeftSidebar";
 import MobileNav from "#/components/MobileNav";
-import MobileNavRight from "#/components/MobileNavRight";
 import PodcastPlayer from "#/components/PodcastPlayer";
 import { Toaster } from "#/components/ui/toaster";
 import UsersInfo from "#/components/UsersInfo";

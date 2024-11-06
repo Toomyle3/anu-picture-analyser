@@ -92,3 +92,7 @@
     zoom 2s ease infinite;
   display: inline-block;
 }
+
+.lucide-x {
+  margin: 0px !important;
+}
