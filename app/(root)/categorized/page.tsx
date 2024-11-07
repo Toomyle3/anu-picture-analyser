@@ -38,10 +38,13 @@ const Page = () => {
           <Button
             disabled={allImagesData?.length === 0}
             onClick={() => handleExportXLSX(allImagesData)}
-            className={classNames("px-4 py-2 text-white hover:bg-black-1 rounded border", {
-              "bg-orange-1": allImagesData && allImagesData?.length > 0,
-              "bg-gray-500": allImagesData?.length === 0,
-            })}
+            className={classNames(
+              "px-4 py-2 text-white hover:bg-black-1 rounded border",
+              {
+                "bg-orange-1": allImagesData && allImagesData?.length > 0,
+                "bg-gray-500": allImagesData?.length === 0,
+              }
+            )}
           >
             Export to Excel
           </Button>

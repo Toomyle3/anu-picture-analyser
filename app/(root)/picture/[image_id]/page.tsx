@@ -49,7 +49,7 @@ const PictureDetails = ({
         await handleSynced(payload);
         await handleDeletePicture({ imageId: image?._id });
         setIsLoading(false);
-        router.push("/categorized");
+        router.push("/uncategorized");
       }
     } catch (error) {
       console.error(error);

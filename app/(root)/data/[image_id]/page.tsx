@@ -36,7 +36,7 @@ const PictureDetails = ({
       await handleDeletePicture({ imageId: image?._id });
       setIsLoading(false);
 
-      router.push("/uncategorized");
+      router.push("/categorized");
     } catch (error) {
       console.error(error);
       alert("Failed to delete picture. Please try again later.");
