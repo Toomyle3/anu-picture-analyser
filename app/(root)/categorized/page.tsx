@@ -6,10 +6,12 @@ import useExportCsv from "#/hooks/useExportCsv";
 import { Button } from "@/components/ui/button";
 import classNames from "classnames";
 import { useQuery } from "convex/react";
+import { Loader } from "lucide-react";
 import { useState } from "react";
 
 const Page = () => {
   const { handleExportXLSX } = useExportCsv();
+  const [isLoading, setIsLoading] = useState(false);
   const allImagesData = useQuery(api.picture.getAllCategorizedPics);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 24;
@@ -36,17 +38,28 @@ const Page = () => {
             Categorized Pictures
           </h1>
           <Button
-            disabled={allImagesData?.length === 0}
-            onClick={() => handleExportXLSX(allImagesData)}
+            disabled={allImagesData?.length === 0 || isLoading}
+            onClick={async () => {
+              setIsLoading(true);
+              await handleExportXLSX(allImagesData);
+              setIsLoading(false);
+            }}
             className={classNames(
-              "px-4 py-2 text-white hover:bg-black-1 rounded border",
+              "text-white hover:bg-black-1 rounded border",
               {
                 "bg-orange-1": allImagesData && allImagesData?.length > 0,
                 "bg-gray-500": allImagesData?.length === 0,
               }
             )}
           >
-            Export to Excel
+            {isLoading ? (
+              <>
+                <Loader size={20} className="animate-spin ml-2 mr-2" />
+                Export to Excel
+              </>
+            ) : (
+              "Export to Excel"
+            )}
           </Button>
         </div>
         {currentItems && currentItems?.length > 0 ? (
