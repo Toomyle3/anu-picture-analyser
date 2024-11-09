@@ -34,10 +34,11 @@ const Page = () => {
         {allImagesData && allImagesData?.length > 0 ? (
           <div className="podcast_grid">
             {currentItems?.map(
-              ({ _id, image_id, image_url, user, _creationTime }) => (
+              ({ _id, image_id, image_url, image_name, user, _creationTime }) => (
                 <PodcastCard
                   key={_id}
                   id={_id}
+                  image_name={image_name}
                   image_url={image_url}
                   image_id={image_id}
                   user={user}

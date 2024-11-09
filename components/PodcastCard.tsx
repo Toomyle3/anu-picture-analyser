@@ -8,6 +8,7 @@ const PodcastCard = ({
   image_url,
   image_id,
   user,
+  image_name,
   _creationTime,
 }: PodcastCardProps) => {
   const router = useRouter();
@@ -30,8 +31,11 @@ const PodcastCard = ({
         />
         <div className="flex flex-col">
           <h1 className="text-16 truncate font-bold text-white-1">
-            {image_id}
+            {image_name}
           </h1>
+          <h2 className="text-12 truncate font-normal capitalize text-white-4">
+            {image_id}
+          </h2>
           <h2 className="text-12 truncate font-normal capitalize text-white-4">
             {user}
           </h2>

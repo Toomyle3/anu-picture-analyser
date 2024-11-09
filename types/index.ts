@@ -26,6 +26,7 @@ export interface GenerateThumbnailProps {
   setImageStorageId: Dispatch<SetStateAction<Id<"_storage"> | null>>;
   setUploadedImages: Dispatch<SetStateAction<string[]>>;
   setStorageIds: Dispatch<SetStateAction<string[]>>;
+  setImageName: Dispatch<SetStateAction<string[]>>;
   storageIds: string[];
   uploadedImages: string[];
 }
@@ -46,6 +47,7 @@ export interface AudioContextType {
 export interface PodcastCardProps {
   id: string;
   image_url: string;
+  image_name: string;
   image_id: string;
   user: string;
   _creationTime: number;

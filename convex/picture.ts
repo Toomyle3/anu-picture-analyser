@@ -1,11 +1,12 @@
 import { ConvexError, v } from "convex/values";
-import { internalMutation, mutation, query } from "./_generated/server";
+import { mutation, query } from "./_generated/server";
 
 export const createImages = mutation({
   args: {
     imagesData: v.array(
       v.object({
         image_id: v.string(),
+        image_name: v.string(),
         image_url: v.string(),
         create_time: v.string(),
       })
@@ -32,6 +33,7 @@ export const createImages = mutation({
         const dataToInsert = {
           user: user[0]._id,
           image_id: data.image_id,
+          image_name: data.image_name,
           image_url: data.image_url,
           create_time: data.create_time,
         };

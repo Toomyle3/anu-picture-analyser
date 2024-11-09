@@ -24,6 +24,7 @@ const CreatePodcast = () => {
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
   const [storageIds, setStorageIds] = useState<string[]>([]);
   const [imageUrl, setImageUrl] = useState<string[]>([]);
+  const [imageName, setImageName] = useState<string[]>([]);
   const [uploadedImages, setUploadedImages] = useState<string[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const handleSaveData = useMutation(api.picture.createImages);
@@ -38,11 +39,12 @@ const CreatePodcast = () => {
         throw new Error("Please generate audio and image");
       }
       if (imageUrl.length > 0) {
-        const savePromises = imageUrl.map(async (url) => {
+        const savePromises = imageUrl.map(async (url, index) => {
           const payload = {
             imagesData: [
               {
                 image_id: crypto.randomUUID(),
+                image_name: imageName[index],
                 image_url: url,
                 create_time: new Date().toISOString(),
               },
@@ -106,6 +108,7 @@ const CreatePodcast = () => {
         <GenerateThumbnail
           uploadedImages={uploadedImages}
           setImageUrl={setImageUrl}
+          setImageName={setImageName}
           setImageStorageId={setImageStorageId}
           setUploadedImages={setUploadedImages}
           setStorageIds={setStorageIds}

@@ -13,6 +13,7 @@ const GenerateThumbnail = ({
   setImageStorageId,
   setUploadedImages,
   setStorageIds,
+  setImageName,
   storageIds,
   uploadedImages,
 }: GenerateThumbnailProps) => {
@@ -31,6 +32,7 @@ const GenerateThumbnail = ({
             maxSizeMB: 0.3,
             maxWidthOrHeight: 800,
           });
+          setImageName(fileNames);
           return new File([compressedBlob], fileNames[index], {
             type: "image/jpeg",
           });
