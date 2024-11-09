@@ -14,8 +14,6 @@ const Page = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const itemsPerPage = 24;
-
-  // Filter images by search term
   const filteredImages = allImagesData?.filter((image) =>
     image.image_name.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -39,7 +37,7 @@ const Page = () => {
   return (
     <div className="flex flex-col gap-9 md:overflow-hidden">
       <section className="flex flex-col gap-5 pb-5">
-        <div className="flex flex-col sm:flex-row gap-2 sm:items-center sm:gap-4">
+        <div className="flex pb-[40px] flex-col sm:flex-row gap-2 sm:items-center sm:gap-4">
           <h1 className="text-20 sm:w-fit font-bold text-white-1">
             Uncategorized Pictures
           </h1>
