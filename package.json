@@ -21,6 +21,7 @@
     "@radix-ui/react-toast": "^1.2.1",
     "@xixixao/uploadstuff": "^0.0.5",
     "axios": "^1.7.7",
+    "browser-image-compression": "^2.0.2",
     "class-variance-authority": "^0.7.0",
     "classnames": "^2.5.1",
     "clsx": "^2.1.1",

@@ -2,12 +2,12 @@ import { api } from "#/convex/_generated/api";
 import { Id } from "#/convex/_generated/dataModel";
 import { GenerateThumbnailProps } from "#/types";
 import { useUploadFiles } from "@xixixao/uploadstuff/react";
+import imageCompression from "browser-image-compression";
 import { useMutation } from "convex/react";
 import { Loader, X } from "lucide-react";
 import Image from "next/image";
 import { useRef, useState } from "react";
 import { Input } from "./ui/input";
-
 const GenerateThumbnail = ({
   setImageUrl,
   setImageStorageId,
@@ -21,29 +21,40 @@ const GenerateThumbnail = ({
   const generateUploadUrl = useMutation(api.files.generateUploadUrl);
   const { startUpload } = useUploadFiles(generateUploadUrl);
   const getImageUrl = useMutation(api.picture.getUrl);
+
   const handleImages = async (blobs: Blob[], fileNames: string[]) => {
     setIsImageLoading(true);
     try {
-      const files = blobs.map(
-        (blob, index) =>
-          new File([blob], fileNames[index], { type: "image/png" })
+      const compressedFiles = await Promise.all(
+        blobs.map(async (blob, index) => {
+          const compressedBlob = await imageCompression(blob as File, {
+            maxSizeMB: 0.3,
+            maxWidthOrHeight: 800,
+          });
+          return new File([compressedBlob], fileNames[index], {
+            type: "image/jpeg",
+          });
+        })
       );
-      const uploaded = await startUpload(files);
+
+      const uploaded = await startUpload(compressedFiles);
       const newStorageIds = uploaded
-        .map((file) => (file.response as { storageId?: string })?.storageId)
-        .filter((id): id is string => id !== undefined);
+        .map(
+          (file) => (file.response as { storageId?: string | null })?.storageId
+        )
+        .filter((id): id is string => id != null);
       const updatedStorageIds = [...storageIds, ...newStorageIds];
       setStorageIds(updatedStorageIds);
       setImageStorageId(updatedStorageIds[0] as any);
 
-      const imageUrls = await Promise.all(
+      const imageUrls: string[] = await Promise.all(
         newStorageIds.map((storageId) =>
           getImageUrl({ storageId: storageId as Id<"_storage"> })
         )
-      );
-      const updatedImages = [...uploadedImages, ...imageUrls];
-      setImageUrl(updatedImages as string[]);
-      setUploadedImages(updatedImages as string[]);
+      ).then((urls) => urls.filter((url): url is string => url != null));
+      const updatedImageUrls = [...uploadedImages, ...imageUrls];
+      setImageUrl(updatedImageUrls);
+      setUploadedImages(updatedImageUrls);
     } catch (error) {
       console.error(error);
     } finally {
@@ -59,14 +70,14 @@ const GenerateThumbnail = ({
 
       const blobs = await Promise.all(
         Array.from(files).map((file) =>
-          file.arrayBuffer().then((ab) => new Blob([ab]))
+          file.arrayBuffer().then((ab) => new Blob([ab], { type: file.type }))
         )
       );
       const fileNames = Array.from(files).map((file) => file.name);
 
       handleImages(blobs, fileNames);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -84,7 +95,7 @@ const GenerateThumbnail = ({
       return (
         <div className="text-16 flex-center font-medium text-white-1">
           Uploading
-          <Loader size={20} className="animate-spin ml-2" />
+          <Loader className="animate-spin ml-2" />
         </div>
       );
     }
@@ -105,7 +116,7 @@ const GenerateThumbnail = ({
               : "Click to upload"}
           </h2>
           <p className="text-12 font-normal text-gray-1">
-            SVG, PNG, JPG, or GIF (up to 20 images, max. 1080x1080px each)
+            SVG, PNG, JPG, or GIF (max. 1080x1080px each)
           </p>
         </div>
       </>

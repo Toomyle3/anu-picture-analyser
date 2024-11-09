@@ -12,7 +12,6 @@ import {
 import { api } from "#/convex/_generated/api";
 import { Id } from "#/convex/_generated/dataModel";
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/components/ui/use-toast";
 import classNames from "classnames";
 import { useMutation } from "convex/react";
 import { Loader } from "lucide-react";
@@ -25,9 +24,7 @@ const CreatePodcast = () => {
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
   const [storageIds, setStorageIds] = useState<string[]>([]);
   const [imageUrl, setImageUrl] = useState<string[]>([]);
-  const [uploadedImages, setUploadedImages] = useState<string[]>(
-    imageUrl || []
-  );
+  const [uploadedImages, setUploadedImages] = useState<string[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const handleSaveData = useMutation(api.picture.createImages);
   const delay = (ms: number) =>
@@ -71,7 +68,7 @@ const CreatePodcast = () => {
     setUploadedImages([]);
     setStorageIds([]);
     setImageUrl([]);
-    setImageStorageId(undefined as any);
+    setImageStorageId(null);
   };
   const handleSuccessConfirm = () => {
     setShowSuccessDialog(false);
