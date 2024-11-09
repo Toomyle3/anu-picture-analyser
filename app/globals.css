@@ -179,3 +179,12 @@ html {
     background-color: #292f39 !important;
   }
 }
+
+.input-custom {
+  background-color: transparent;
+  color: white;
+}
+
+.input-custom:focus {
+  box-shadow: none !important;
+}

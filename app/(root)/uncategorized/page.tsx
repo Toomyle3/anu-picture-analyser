@@ -51,12 +51,7 @@ const Page = () => {
                 setSearchTerm(e.target.value);
                 setCurrentPage(1);
               }}
-              className={cn(
-                "flex-grow sm:w-[300px] px-2 border-none text-white py-1 bg-transparent outline-none",
-                {
-                  "focus:ring-2 focus:ring-blue-500": searchTerm,
-                }
-              )}
+              className="flex-grow input-custom sm:w-[300px] px-2 border-none py-1 outline-none"
             />
           </div>
         </div>
